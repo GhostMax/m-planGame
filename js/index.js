@@ -15,6 +15,9 @@ var fenshu = 0;
 var fen = document.getElementById("fen");
 var fenBox = document.getElementById("fenBox");
 var fenBox_p = document.getElementById("fenBox_p");
+var windowW = document.body.offsetWidth;
+var windowH = document.body.offsetHeight;
+
 myPlan.timeId = null;
 strat_a.onclick = function(){
     strat_main.style.display = "none";
@@ -23,8 +26,8 @@ strat_a.onclick = function(){
 }
 function yidong(e){
     var e = e || window.event;
-    var pageX = e.pageX;
-    var pageY = e.pageY;
+    var pageX = e.changedTouches[0].pageX;
+    var pageY = e.changedTouches[0].pageY;
     var containtTop = document.querySelector(".main").offsetTop;
     var containtLeft = document.querySelector(".main").offsetLeft;
     //console.log(x+",,,"+y);
@@ -34,12 +37,12 @@ function yidong(e){
     //console.log(x + ">>>" + y);
     x = x <= 5 ? 5:x;
     y = y <= 40 ? 40:y;
-    x = x >= 315 ? 315:x;
-    y = y >= 560 ? 560:y;
+    x = x >= windowW-5 ? windowW-5:x;
+    y = y >= windowH-myPlan.offsetHeight/2 ? windowH-myPlan.offsetHeight/2:y;
     myPlan.style.left = (x)+"px";
     myPlan.style.top = (y)+"px";
 }
-containt_main.addEventListener("mousemove",yidong)
+myPlan.addEventListener("touchmove",yidong)
 //setInterval(function(){
 //    var danY = myPlan.offsetTop;
 //    var danX = myPlan.offsetLeft+myPlan.offsetWidth/2;
@@ -166,7 +169,7 @@ function strat(){
             diplanArr[j].dimove();
         }
     //    ³¬³ö±ß½çÉ¾³ýµÐ»ú
-        if(diplanArr[j].diplanImg.offsetTop > 568){
+        if(diplanArr[j].diplanImg.offsetTop > windowH){
             containt_main.removeChild(diplanArr[j].diplanImg);
             diplanArr.splice(j,1);
         }
@@ -203,7 +206,7 @@ function strat(){
                     myPlan.src = "images/myPlan_boom.gif";
                     fenBox_p.innerText = fenHtml;
                     fenBox.style.display = "block";
-                    containt_main.removeEventListener("mousemove",yidong);
+                    myPlan.removeEventListener("touchmove",yidong);
                     containt_main.style.animationPlayState = "paused";
                     clearInterval(myPlan.timeId);
                 }
@@ -237,13 +240,13 @@ btnRe.onclick = zhongxin;
 
 myPlan.onclick = function(){
     clearInterval(myPlan.timeId);
-    containt_main.removeEventListener("mousemove",yidong);
+    myPlan.removeEventListener("touchmove",yidong);
     containt_main.style.animationPlayState = "paused";
     mainBox.style.display = "block";
 }
 btnJixu.onclick = function(){
     myPlan.timeId = setInterval(strat,20);
-    containt_main.addEventListener("mousemove",yidong);
+    myPlan.addEventListener("touchmove",yidong);
     containt_main.style.animationPlayState = "running";
     mainBox.style.display = "none";
 }
@@ -274,6 +277,6 @@ function zhongxin(){
             i--;
         }
     }
-    containt_main.addEventListener("mousemove",yidong);
+    myPlan.addEventListener("touchmove",yidong);
     myPlan.timeId = setInterval(strat,20);
 }

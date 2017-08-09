@@ -2,17 +2,26 @@
     margin: 0;
     padding: 0;
 }
+html,body{
+    width: 100%;
+    height: 100%;
+}
 .main{
-    width: 320px;
-    height: 568px;
-    margin: 50px auto;
+    /*width: 320px;*/
+    /*height: 568px;*/
+    width: 100%;
+    height: 100%;
+    margin: 0px auto;
     position: relative;
     overflow: hidden;
 }
 .strat{
-    width: 320px;
-    height: 568px;
+    /*width: 320px;*/
+    /*height: 568px;*/
+    width: 100%;
+    height: 100%;
     background-image: url(../images/start-bg.png);
+    background-size: contain;
 }
 .strat>a{
     position: absolute;
@@ -31,6 +40,7 @@
 }
 .containt{
     background-image: url(../images/background_1.png);
+    background-size: contain;
     display: none;
     animation: bg_1 15s infinite linear;
     height: 100%;
@@ -41,6 +51,7 @@
     left: 50%;
     margin-left: -33px;
     margin-top: -40px;
+    /*transition: all 0.1s linear;*/
 }
 .fen{
     position: absolute;
